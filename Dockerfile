@@ -35,3 +35,9 @@ RUN chmod +x zephyr-sdk-0.11.3-setup.run
 RUN ./zephyr-sdk-0.11.3-setup.run -- -d ~/zephyr-sdk-0.11.3
 
 WORKDIR /zephyrproject
+
+RUN pip3 install --user -r ./bootloader/mcuboot/scripts/requirements.txt
+
+# set locale
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
