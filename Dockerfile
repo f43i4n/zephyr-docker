@@ -41,3 +41,6 @@ RUN pip3 install --user -r ./bootloader/mcuboot/scripts/requirements.txt
 # set locale
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+
+# install imgtool for signing images
+RUN pip3 install --user imgtool
