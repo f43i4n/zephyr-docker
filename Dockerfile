@@ -16,7 +16,15 @@ RUN pip3 install --user -U west
 
 ENV PATH="/root/.local/bin:${PATH}"
 
-RUN west init /zephyrproject
+WORKDIR /root
+
+RUN wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.11.3/zephyr-sdk-0.11.3-setup.run
+
+RUN chmod +x zephyr-sdk-0.11.3-setup.run
+
+RUN ./zephyr-sdk-0.11.3-setup.run -- -d ~/zephyr-sdk-0.11.3
+
+RUN west init --mr v2.3-branch /zephyrproject
 
 WORKDIR /zephyrproject
 
@@ -26,21 +34,11 @@ RUN west zephyr-export
 
 RUN pip3 install --user -r ./zephyr/scripts/requirements.txt
 
-WORKDIR /root
-
-RUN wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.11.3/zephyr-sdk-0.11.3-setup.run
-
-RUN chmod +x zephyr-sdk-0.11.3-setup.run
-
-RUN ./zephyr-sdk-0.11.3-setup.run -- -d ~/zephyr-sdk-0.11.3
-
-WORKDIR /zephyrproject
-
 RUN pip3 install --user -r ./bootloader/mcuboot/scripts/requirements.txt
+
+# install imgtool for signing images
+RUN pip3 install --user imgtool
 
 # set locale
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-
-# install imgtool for signing images
-RUN pip3 install --user imgtool
