@@ -16,5 +16,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: f43i4n/zephyr:2.3
-          tags: latest
+          repository: f43i4n/zephyr
+          tags: 2.3
